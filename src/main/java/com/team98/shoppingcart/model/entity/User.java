@@ -64,13 +64,13 @@ public class User implements UserDetails {
   @Column(name = "PHONE", nullable = false)
   private int phone;
 
-  @Column(name = "CITY", unique = true, nullable = false)
+  @Column(name = "CITY", nullable = false)
   private String city;
 
-  @Column(name = "STATE", unique = true, nullable = false)
+  @Column(name = "STATE", nullable = false)
   private String state;
 
-  @Column(name = "COUNTRY", unique = true, nullable = false)
+  @Column(name = "COUNTRY", nullable = false)
   private String country;
 
   @Column(name = "POSTAL_CODE", nullable = false)
