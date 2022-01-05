@@ -1,7 +1,9 @@
 package com.team98.shoppingcart.model.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,11 +31,11 @@ public class CartItem {
     private Long id;
 
     @JoinColumn(name = "PRODUCT_ID", nullable = false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Product product;
 
     @JoinColumn(name = "USERS_ID", nullable = false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private User user;
 
     @Column(name = "QUANTITY", nullable = false)
