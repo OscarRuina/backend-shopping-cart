@@ -55,8 +55,8 @@ public class User implements UserDetails {
   @Column(name = "PASSWORD_CONFIRMATION", nullable = false)
   private String passwordConfirmation;
 
-  @Column(name = "DIRECTION", nullable = false)
-  private String direction;
+  @Column(name = "ADRESS", nullable = false)
+  private String adress;
 
   @Column(name = "DELIVERY_DIRECTION", nullable = false)
   private String deliveryDirection;
@@ -73,8 +73,8 @@ public class User implements UserDetails {
   @Column(name = "COUNTRY", nullable = false)
   private String country;
 
-  @Column(name = "POSTAL_CODE", nullable = false)
-  private String postalCode;
+  @Column(name = "POST_CODE", nullable = false)
+  private String postCode;
 
   // token reset password(cuando tengamos seguridad)
 
