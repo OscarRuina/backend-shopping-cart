@@ -46,6 +46,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		 <dependency>
+		     <artifactId>spring-security-test</artifactId>
+		     <groupId>org.springframework.security</groupId>
+		     <scope>test</scope>
+	    </dependency>
+	    <dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>5.6.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
