@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AccessLevel;
 import org.hibernate.annotations.CreationTimestamp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,19 +22,20 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Role {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "ROLES_ID")
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ROLES_ID")
+    @Setter(AccessLevel.NONE)
+    private Long id;
 
-  @Column(name = "NAME", nullable = false)
-  private String name;
+    @Column(name = "NAME", nullable = false)
+    private String name;
 
-  @Column(name = "DESCRIPTION", nullable = true)
-  private String description;
+    @Column(name = "DESCRIPTION", nullable = true)
+    private String description;
 
-  @CreationTimestamp
-  @Column(name = "TIMESTAMP", nullable = true)
-  private Timestamp timestamp;
+    @CreationTimestamp
+    @Column(name = "TIMESTAMP", nullable = true)
+    private Timestamp timestamp;
 
 }

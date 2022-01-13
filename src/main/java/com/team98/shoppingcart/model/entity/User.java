@@ -25,7 +25,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-
 @Entity
 @Table(name = "USERS")
 @Getter
@@ -34,93 +33,93 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 public class User implements UserDetails {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Setter(AccessLevel.NONE)
-  @Column(name = "USERS_ID")
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    @Column(name = "USERS_ID")
+    private Long id;
 
-  @Column(name = "FIRST_NAME", nullable = false)
-  private String firstName;
+    @Column(name = "FIRST_NAME", nullable = false)
+    private String firstName;
 
-  @Column(name = "LAST_NAME", nullable = false)
-  private String lastName;
+    @Column(name = "LAST_NAME", nullable = false)
+    private String lastName;
 
-  @Column(name = "EMAIL", unique = true, nullable = false)
-  private String email;
+    @Column(name = "EMAIL", unique = true, nullable = false)
+    private String email;
 
-  @Column(name = "PASSWORD", nullable = false)
-  private String password;
+    @Column(name = "PASSWORD", nullable = false)
+    private String password;
 
-  @Column(name = "PASSWORD_CONFIRMATION", nullable = false)
-  private String passwordConfirmation;
+    @Column(name = "PASSWORD_CONFIRMATION", nullable = false)
+    private String passwordConfirmation;
 
-  @Column(name = "ADDRESS", nullable = false)
-  private String address;
+    @Column(name = "ADDRESS", nullable = false)
+    private String address;
 
-  @Column(name = "DELIVERY_DIRECTION", nullable = false)
-  private String deliveryDirection;
+    @Column(name = "DELIVERY_DIRECTION", nullable = false)
+    private String deliveryDirection;
 
-  @Column(name = "PHONE", nullable = false)
-  private int phone;
+    @Column(name = "PHONE", nullable = false)
+    private int phone;
 
-  @Column(name = "CITY", nullable = false)
-  private String city;
+    @Column(name = "CITY", nullable = false)
+    private String city;
 
-  @Column(name = "STATE", nullable = false)
-  private String state;
+    @Column(name = "STATE", nullable = false)
+    private String state;
 
-  @Column(name = "COUNTRY", nullable = false)
-  private String country;
+    @Column(name = "COUNTRY", nullable = false)
+    private String country;
 
-  @Column(name = "POST_CODE", nullable = false)
-  private String postCode;
+    @Column(name = "POST_CODE", nullable = false)
+    private String postCode;
 
-  // token reset password(cuando tengamos seguridad)
+    // token reset password(cuando tengamos seguridad)
 
-  @Column(name = "PHOTO", nullable = true)
-  private String photo;
+    @Column(name = "PHOTO", nullable = true)
+    private String photo;
 
-  @JoinColumn(name = "ROLES_ID")
-  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-  private List<Role> roles;
+    @JoinColumn(name = "ROLES_ID")
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<Role> roles;
 
-  @CreationTimestamp
-  @Column(name = "TIMESTAMP", nullable = true)
-  private Timestamp timestamp;
+    @CreationTimestamp
+    @Column(name = "TIMESTAMP", nullable = true)
+    private Timestamp timestamp;
 
-  @Column(name = "SOFT_DELETED", nullable = true)
-  private boolean softDeleted;
+    @Column(name = "SOFT_DELETED", nullable = true)
+    private boolean softDeleted;
 
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return this.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName()))
-        .collect(Collectors.toList());
-  }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
+    }
 
-  @Override
-  public String getUsername() {
-    return email;
-  }
+    @Override
+    public String getUsername() {
+        return email;
+    }
 
-  @Override
-  public boolean isAccountNonExpired() {
-    return true;
-  }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-  @Override
-  public boolean isAccountNonLocked() {
-    return true;
-  }
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-  @Override
-  public boolean isCredentialsNonExpired() {
-    return true;
-  }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-  @Override
-  public boolean isEnabled() {
-    return !this.softDeleted;
-  }
+    @Override
+    public boolean isEnabled() {
+        return !this.softDeleted;
+    }
 
 }
