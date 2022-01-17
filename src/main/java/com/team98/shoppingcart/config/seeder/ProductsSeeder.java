@@ -8,9 +8,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 import com.team98.shoppingcart.model.entity.Product;
 import com.team98.shoppingcart.repository.IProductRepository;
 
+@Component
 public class ProductsSeeder implements CommandLineRunner {
 
   private static final String IMAGE = "https://foo.jpg";
