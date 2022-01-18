@@ -25,7 +25,6 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ROLES_ID")
-    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(name = "NAME", nullable = false)
