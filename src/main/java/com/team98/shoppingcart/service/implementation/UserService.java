@@ -97,7 +97,6 @@ public class UserService implements UserDetailsService, IAuthenticationService, 
         user.setLastName(registerRequest.getLastName());
         user.setEmail(registerRequest.getEmail());
         user.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
-        user.setPasswordConfirmation(bCryptPasswordEncoder.encode(registerRequest.getPasswordConfirmation()));
         user.setAddress(registerRequest.getAddress());
         user.setDeliveryDirection(registerRequest.getDeliveryDirection());
         user.setPhone(registerRequest.getPhone());

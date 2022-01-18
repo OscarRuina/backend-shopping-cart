@@ -15,7 +15,6 @@ public class UserRegisterRequest {
     private String lastName;
     private String email;
     private String password;
-    private String passwordConfirmation;
     private String address;
     private String deliveryDirection;
     private int phone;
