@@ -51,9 +51,6 @@ public class User implements UserDetails {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @Column(name = "PASSWORD_CONFIRMATION", nullable = false)
-    private String passwordConfirmation;
-
     @Column(name = "ADDRESS", nullable = false)
     private String address;
 
