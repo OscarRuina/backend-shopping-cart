@@ -11,7 +11,7 @@ import com.team98.shoppingcart.model.response.UserDetailsResponse;
 import com.team98.shoppingcart.model.response.UserRegisterResponse;
 import com.team98.shoppingcart.repository.IUserRepository;
 import com.team98.shoppingcart.service.abstraction.IAuthenticationService;
-import com.team98.shoppingcart.service.abstraction.IRegisterService;
+import com.team98.shoppingcart.service.abstraction.IUserRegisterService;
 import com.team98.shoppingcart.service.abstraction.IRoleService;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +25,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserService implements UserDetailsService, IAuthenticationService, IRegisterService {
+public class UserService implements UserDetailsService, IAuthenticationService,
+        IUserRegisterService {
 
     @Autowired
     private IUserRepository userRepository;
@@ -82,6 +84,7 @@ public class UserService implements UserDetailsService, IAuthenticationService, 
     }
 
     @Override
+    @Transactional
     public UserRegisterResponse register(UserRegisterRequest registerRequest) {
 
         if (userRepository.findByEmail(registerRequest.getEmail()) != null) {
