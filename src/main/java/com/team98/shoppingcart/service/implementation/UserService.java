@@ -13,6 +13,7 @@ import com.team98.shoppingcart.repository.IUserRepository;
 import com.team98.shoppingcart.service.abstraction.IAuthenticationService;
 import com.team98.shoppingcart.service.abstraction.IUserRegisterService;
 import com.team98.shoppingcart.service.abstraction.IRoleService;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
@@ -54,7 +55,7 @@ public class UserService implements UserDetailsService, IAuthenticationService,
 
         User user = userRepository.findByEmail(username);
         if (user == null) {
-            throw new EntityNotFoundException("");
+            throw new UsernameNotFoundException(MessageFormat.format("User {0} not found.", username));
         }
         return user;
     }
@@ -64,7 +65,7 @@ public class UserService implements UserDetailsService, IAuthenticationService,
 
         User user = userRepository.findByEmail(authenticationRequest.getEmail());
         if (user == null) {
-            throw new EntityNotFoundException("User not found!!!");
+            throw new UsernameNotFoundException(MessageFormat.format("User {0} not found.", authenticationRequest.getEmail()));
         }
 
         authenticationManager.authenticate(
@@ -114,7 +115,7 @@ public class UserService implements UserDetailsService, IAuthenticationService,
         user.setPostCode(registerRequest.getPostCode());
         user.setPhoto(registerRequest.getPhoto());
         List<Role> roles = new ArrayList<>();
-        roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
+        roles.add(roleService.findByName(ApplicationRole.USER.getFullRoleName()));
         user.setRoles(roles);
         return user;
     }

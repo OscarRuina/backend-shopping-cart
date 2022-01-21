@@ -21,6 +21,6 @@ public class ConvertUtils {
         userRegisterResponse.setCountry(user.getCountry());
         userRegisterResponse.setPostCode(user.getPostCode());
         userRegisterResponse.setJwt(jwt);
-        return null;
+        return userRegisterResponse;
     }
 }

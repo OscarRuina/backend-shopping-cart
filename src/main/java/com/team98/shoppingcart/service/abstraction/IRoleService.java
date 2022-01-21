@@ -4,5 +4,5 @@ import com.team98.shoppingcart.model.entity.Role;
 
 public interface IRoleService {
 
-    Role findBy(String name);
+    Role findByName(String name);
 }
