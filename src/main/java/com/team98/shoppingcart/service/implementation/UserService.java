@@ -51,7 +51,12 @@ public class UserService implements UserDetailsService, IAuthenticationService,
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+
+        User user = userRepository.findByEmail(username);
+        if (user == null) {
+            throw new EntityNotFoundException("");
+        }
+        return user;
     }
 
     @Override
