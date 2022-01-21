@@ -2,7 +2,9 @@ package com.team98.shoppingcart.common.converter;
 
 import com.team98.shoppingcart.model.entity.User;
 import com.team98.shoppingcart.model.response.UserRegisterResponse;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ConvertUtils {
 
     public UserRegisterResponse toResponse(User user, String jwt) {

@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     private IUserRegisterService registerService;
 
-    @PostMapping(value = "api/auth/register",
+    @PostMapping(value = "/api/auth/register",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserRegisterResponse> register(
