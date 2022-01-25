@@ -1,5 +1,6 @@
 package com.team98.shoppingcart.controllers;
 
+import com.team98.shoppingcart.exception.EmailAlreadyExistException;
 import com.team98.shoppingcart.model.request.UserRegisterRequest;
 import com.team98.shoppingcart.model.response.UserRegisterResponse;
 import com.team98.shoppingcart.service.abstraction.IUserRegisterService;
@@ -21,7 +22,7 @@ public class UserController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserRegisterResponse> register(
-            @RequestBody UserRegisterRequest registerRequest) {
+        @RequestBody UserRegisterRequest registerRequest) throws EmailAlreadyExistException {
         return new ResponseEntity<>(registerService.register(registerRequest),HttpStatus.CREATED);
     }
 

@@ -2,7 +2,11 @@ package com.team98.shoppingcart.service.implementation;
 
 import com.team98.shoppingcart.common.JwtUtil;
 import com.team98.shoppingcart.common.converter.ConvertUtils;
+import com.team98.shoppingcart.common.mail.EmailHelper;
+import com.team98.shoppingcart.common.mail.template.RegisterTemplateEmail;
 import com.team98.shoppingcart.config.ApplicationRole;
+import com.team98.shoppingcart.exception.EmailAlreadyExistException;
+import com.team98.shoppingcart.exception.SendEmailException;
 import com.team98.shoppingcart.model.entity.Role;
 import com.team98.shoppingcart.model.entity.User;
 import com.team98.shoppingcart.model.request.UserAuthenticationRequest;
@@ -12,6 +16,7 @@ import com.team98.shoppingcart.model.response.UserRegisterResponse;
 import com.team98.shoppingcart.repository.IUserRepository;
 import com.team98.shoppingcart.service.abstraction.IAuthenticationService;
 import com.team98.shoppingcart.service.abstraction.IUserRegisterService;
+import lombok.extern.slf4j.Slf4j;
 import com.team98.shoppingcart.service.abstraction.IRoleService;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -29,6 +34,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Slf4j
 public class UserService implements UserDetailsService, IAuthenticationService,
         IUserRegisterService {
 
@@ -37,7 +43,7 @@ public class UserService implements UserDetailsService, IAuthenticationService,
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
+    
     @Autowired
     private JwtUtil jwtUtil;
 
@@ -49,6 +55,9 @@ public class UserService implements UserDetailsService, IAuthenticationService,
 
     @Autowired
     private IRoleService roleService;
+
+    @Autowired
+    private EmailHelper emailHelper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -91,12 +100,14 @@ public class UserService implements UserDetailsService, IAuthenticationService,
 
     @Override
     @Transactional
-    public UserRegisterResponse register(UserRegisterRequest registerRequest) {
+    public UserRegisterResponse register(UserRegisterRequest registerRequest)
+        throws EmailAlreadyExistException {
 
         if (userRepository.findByEmail(registerRequest.getEmail()) != null) {
-            throw new BadCredentialsException("User already registered!!!");
+          throw new EmailAlreadyExistException();
         }
         User user = userRepository.save(buildUser(registerRequest));
+        sendEmail(registerRequest.getEmail(), registerRequest);
         return convertUtils.toResponse(user, jwtUtil.generateToken(user));
     }
 
@@ -118,5 +129,20 @@ public class UserService implements UserDetailsService, IAuthenticationService,
         roles.add(roleService.findByName(ApplicationRole.USER.getFullRoleName()));
         user.setRoles(roles);
         return user;
+    }
+
+    private void sendEmail(String email, UserRegisterRequest registerRequest) {
+      try {
+        UserRegisterRequest userRegisterRequest = registerRequest;
+        emailHelper.send(new RegisterTemplateEmail(
+            email, 
+            registerRequest.getPhoto(),
+            registerRequest.getFirstName(),
+            registerRequest.getAddress(),
+            registerRequest.getPhone()
+            ));
+      } catch (SendEmailException e) {
+        log.warn(e.getMessage());
+      }
     }
 }
